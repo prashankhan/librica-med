@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCartStore } from "@/stores/cart-store";
 import { useMounted } from "@/hooks/use-mounted";
 import { useShippingRules } from "@/hooks/use-shipping-rules";
@@ -8,6 +9,7 @@ import { formatLkr } from "@/lib/format";
 import { getShippingFeeLkr, sumCartWeightGrams } from "@/lib/shipping";
 
 export function StickyCartBar() {
+  const pathname = usePathname();
   const mounted = useMounted();
   const items = useCartStore((s) => s.items);
   const rules = useShippingRules();
@@ -19,13 +21,16 @@ export function StickyCartBar() {
   const shipping = mounted ? getShippingFeeLkr(totalWeight, rules) : 0;
   const total = subtotal + shipping;
 
-  if (!mounted || count === 0) return null;
+  const shouldHideStickyCart =
+    pathname === "/cart" || pathname === "/checkout";
+
+  if (!mounted || count === 0 || shouldHideStickyCart) return null;
 
   return (
     <>
       <Link
         href="/cart"
-        className="fixed bottom-4 left-4 right-4 z-40 rounded-full bg-[#037eff] py-3 text-center text-sm font-semibold text-white shadow-lg transition duration-200 ease-out hover:brightness-110 md:hidden"
+        className="fixed bottom-4 left-4 right-4 z-40 rounded-full bg-yellow-400 py-3 text-center text-sm font-bold text-black shadow-lg transition duration-200 ease-out hover:bg-yellow-300 md:hidden"
       >
         View cart ({count} {count === 1 ? "item" : "items"})
       </Link>

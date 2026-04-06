@@ -85,7 +85,7 @@ export function SiteHeader() {
           >
             <CartIcon className="h-8 w-8" />
             {mounted && count > 0 ? (
-              <span className="absolute -right-0.5 -top-0.5 flex min-h-[1.25rem] min-w-[1.25rem] items-center justify-center rounded-full bg-[#037eff] px-1.5 text-xs font-semibold text-white">
+              <span className="absolute -right-0.5 -top-0.5 flex min-h-[1.25rem] min-w-[1.25rem] items-center justify-center rounded-full bg-red-600 px-1.5 text-xs font-semibold text-white">
                 {count > 99 ? "99+" : count}
               </span>
             ) : null}
