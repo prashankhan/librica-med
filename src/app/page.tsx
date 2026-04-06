@@ -7,6 +7,7 @@ import {
   Truck,
   type LucideIcon,
 } from "lucide-react";
+import { GiCheckMark } from "react-icons/gi";
 import { ButtonLink } from "@/components/ui/button";
 import { BookCard } from "@/components/book/book-card";
 import { getAllBooks, getFeaturedBooks } from "@/lib/airtable/books";
@@ -67,9 +68,9 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-white bg-[url('/lib%20med%20bg.png')] bg-cover bg-position-[62%_center] bg-no-repeat">
+      <section className="relative overflow-hidden bg-white bg-[url('/lib%20med%20bg.png')] bg-cover bg-right bg-no-repeat md:bg-[position:62%_center]">
         <div
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#fff_0%,#fff_50%,rgba(255,255,255,0)_65%,rgba(255,255,255,0)_100%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,1)_0%,rgba(255,255,255,0.9)_100%)] md:bg-[linear-gradient(to_right,#fff_0%,#fff_50%,rgba(255,255,255,0)_65%,rgba(255,255,255,0)_100%)]"
           aria-hidden
         />
         <PageContainer className="relative z-10 py-14 md:py-16 lg:py-20">
@@ -86,32 +87,35 @@ export default async function HomePage() {
               {heroBullets.map((text) => (
                 <li
                   key={text}
-                  className="flex shrink-0 items-center gap-3 text-base font-medium text-[#001f40] md:text-lg"
+                  className="flex shrink-0 items-center gap-2 text-base font-medium text-[#001f40] md:text-lg"
                 >
-                  <FilledCheckIcon />
+                  <GiCheckMark
+                    className="h-6 w-6 shrink-0 text-[#037eff] md:h-7 md:w-7"
+                    aria-hidden
+                  />
                   {text}
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-lg leading-relaxed text-gray-600">
+            <p className="mt-6 hidden text-lg leading-relaxed text-gray-600 md:block">
               Librica Med is a calm, focused place to discover medical and
               healthcare-related books for students and exam candidates across
               Sri Lanka. Browse curated titles, see transparent weight-based
               shipping, and confirm your order easily through WhatsApp—without
               payment friction on the site.
             </p>
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-6 flex w-full flex-col gap-3 md:mt-10 md:flex-row md:flex-wrap">
               <ButtonLink
                 href="/shop"
                 variant="primary"
-                className="px-8! py-4! text-lg! font-bold! tracking-tight"
+                className="w-full justify-center px-8! py-4! text-lg! font-bold! tracking-tight md:w-auto"
               >
                 Shop Books
               </ButtonLink>
               <ButtonLink
                 href={WHATSAPP_WA_ME}
                 variant="outline"
-                className="px-8! py-4! text-lg! font-bold! tracking-tight"
+                className="w-full justify-center px-8! py-4! text-lg! font-bold! tracking-tight md:w-auto"
                 target="_blank"
               >
                 Contact on WhatsApp
@@ -201,24 +205,5 @@ export default async function HomePage() {
         </PageContainer>
       </section>
     </>
-  );
-}
-
-function FilledCheckIcon() {
-  return (
-    <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#037eff] md:h-7 md:w-7">
-      <svg
-        viewBox="0 0 24 24"
-        className="h-4 w-4 text-white md:h-[18px] md:w-[18px]"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden
-      >
-        <path d="m7.5 12.5 3 3 6-6" />
-      </svg>
-    </span>
   );
 }
