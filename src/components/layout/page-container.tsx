@@ -66,7 +66,7 @@ interface ProductGridProps {
 export function ProductGrid({ children, className = "" }: ProductGridProps) {
   return (
     <div
-      className={`grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-4 lg:gap-8 ${className}`.trim()}
+      className={`grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-4 lg:gap-8 ${className}`.trim()}
     >
       {children}
     </div>
