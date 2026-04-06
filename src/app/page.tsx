@@ -3,7 +3,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   BookOpen,
-  CircleCheck,
   MessageCircle,
   Truck,
   type LucideIcon,
@@ -26,9 +25,6 @@ export const metadata: Metadata = {
     "Sri Lanka’s trusted online medical bookstore. Curated titles for medicine, nursing, pharmacy, and allied health—with simple WhatsApp-assisted ordering.",
   alternates: { canonical: "/" },
 };
-
-const heroAccentIconClass =
-  "h-6 w-6 shrink-0 text-[#037eff] md:h-7 md:w-7";
 
 const featureIconClass =
   "h-7 w-7 shrink-0 text-[#037eff] md:h-8 md:w-8";
@@ -92,11 +88,7 @@ export default async function HomePage() {
                   key={text}
                   className="flex shrink-0 items-center gap-3 text-base font-medium text-[#001f40] md:text-lg"
                 >
-                  <CircleCheck
-                    className={heroAccentIconClass}
-                    aria-hidden
-                    strokeWidth={2}
-                  />
+                  <FilledCheckIcon />
                   {text}
                 </li>
               ))}
@@ -209,5 +201,24 @@ export default async function HomePage() {
         </PageContainer>
       </section>
     </>
+  );
+}
+
+function FilledCheckIcon() {
+  return (
+    <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#037eff] md:h-7 md:w-7">
+      <svg
+        viewBox="0 0 24 24"
+        className="h-4 w-4 text-white md:h-[18px] md:w-[18px]"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden
+      >
+        <path d="m7.5 12.5 3 3 6-6" />
+      </svg>
+    </span>
   );
 }
