@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import { CartPageClient } from "@/components/cart/cart-page-client";
+import {
+  PAGE_H1_CLASS,
+  PAGE_LEAD_CLASS,
+  PageContainer,
+  SECTION_PAD_Y,
+} from "@/components/layout/page-container";
 
 export const metadata: Metadata = {
   title: "Cart",
@@ -10,17 +16,15 @@ export const metadata: Metadata = {
 
 export default function CartPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-      <h1 className="text-3xl font-semibold tracking-tight text-[#001f40]">
-        Cart
-      </h1>
-      <p className="mt-2 max-w-xl text-sm text-[#001f40]/55">
-        Shipping updates instantly as you change quantities. Totals match what
-        we store with your order before WhatsApp opens.
-      </p>
-      <div className="mt-10">
-        <CartPageClient />
-      </div>
-    </div>
+    <PageContainer className={SECTION_PAD_Y}>
+      <header className="mb-8">
+        <h1 className={PAGE_H1_CLASS}>Cart</h1>
+        <p className={`mt-4 max-w-2xl ${PAGE_LEAD_CLASS}`}>
+          Shipping updates instantly as you change quantities. Totals match what
+          we store with your order before WhatsApp opens.
+        </p>
+      </header>
+      <CartPageClient />
+    </PageContainer>
   );
 }

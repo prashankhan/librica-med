@@ -6,6 +6,7 @@ import {
   SITE_NAME,
   SITE_URL,
   SITE_DESCRIPTION,
+  SITE_FAVICON_SRC,
 } from "@/lib/site-config";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/seo/json-ld";
 
@@ -51,6 +52,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: SITE_URL,
+  },
+  icons: {
+    icon: [{ url: SITE_FAVICON_SRC, type: "image/svg+xml" }],
+    shortcut: SITE_FAVICON_SRC,
+    apple: SITE_FAVICON_SRC,
   },
 };
 

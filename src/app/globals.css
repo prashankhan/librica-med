@@ -10,6 +10,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-secondary: var(--secondary);
   --font-sans: var(--font-ibm-plex-condensed), ui-sans-serif, system-ui,
     sans-serif;
 }

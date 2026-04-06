@@ -6,25 +6,28 @@ interface BookCoverProps {
   priority?: boolean;
   sizes?: string;
   className?: string;
+  /** Width:height box for the frame. Default 2/3 (tall book). Use 3/4 for shorter grid thumbnails. */
+  aspectClassName?: string;
 }
 
 export function BookCover({
   src,
   alt,
   priority = false,
-  sizes = "(max-width: 640px) 45vw, (max-width: 1024px) 25vw, 200px",
+  sizes = "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw",
   className = "",
+  aspectClassName = "aspect-[2/3]",
 }: BookCoverProps) {
   return (
     <div
-      className={`relative w-full overflow-hidden rounded-xl border border-neutral-200/80 bg-neutral-50 aspect-[2/3] ${className}`}
+      className={`relative w-full overflow-hidden rounded-lg border border-gray-100 bg-gray-50 ${aspectClassName} ${className}`.trim()}
     >
       {src ? (
         <Image
           src={src}
           alt={alt}
           fill
-          className="object-cover"
+          className="object-cover transition duration-200 ease-out group-hover:scale-[1.02]"
           sizes={sizes}
           priority={priority}
         />
@@ -33,7 +36,7 @@ export function BookCover({
           <span className="text-[10px] font-semibold uppercase tracking-widest text-[#037eff]/80">
             Librica Med
           </span>
-          <span className="text-xs font-medium leading-snug text-[#001f40]/50 line-clamp-4">
+          <span className="line-clamp-4 text-xs font-medium leading-snug text-gray-400">
             {alt}
           </span>
         </div>

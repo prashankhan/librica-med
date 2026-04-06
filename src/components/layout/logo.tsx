@@ -1,19 +1,26 @@
+import Image from "next/image";
 import Link from "next/link";
+import { SITE_LOGO_SRC, SITE_NAME } from "@/lib/site-config";
 
 /**
- * Text wordmark placeholder. To use a vector logo, add `public/logo.svg` and
- * replace this block with e.g.:
- *   import Image from "next/image";
- *   <Link href="/"><Image src="/logo.svg" alt="Librica Med" width={140} height={36} className="h-8 w-auto" priority /></Link>
+ * Wordmark from `public/logos/Librica Med.svg`. Replace the file there to update branding.
  */
 export function Logo() {
   return (
     <Link
       href="/"
-      className="font-semibold text-lg tracking-tight text-[#001f40] hover:text-[#037eff] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#037eff] rounded-sm"
-      aria-label="Librica Med home"
+      className="flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#037eff] rounded-sm"
+      aria-label={`${SITE_NAME} home`}
     >
-      LIBRICA MED
+      <Image
+        src={SITE_LOGO_SRC}
+        alt={SITE_NAME}
+        width={364}
+        height={112}
+        className="h-12 w-auto max-h-12 sm:h-14 sm:max-h-14"
+        priority
+        unoptimized
+      />
     </Link>
   );
 }

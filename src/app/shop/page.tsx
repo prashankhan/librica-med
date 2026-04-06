@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { ShopClient } from "@/components/book/shop-client";
 import { getAllBooks } from "@/lib/airtable/books";
+import {
+  PAGE_H1_CLASS,
+  PAGE_LEAD_CLASS,
+  PageContainer,
+  SECTION_PAD_Y,
+} from "@/components/layout/page-container";
 
 export const metadata: Metadata = {
   title: "Shop Medical Books",
@@ -13,18 +19,16 @@ export default async function ShopPage() {
   const books = await getAllBooks();
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-      <header className="mb-12 max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-[#001f40] sm:text-4xl">
-          Shop
-        </h1>
-        <p className="mt-3 text-sm leading-relaxed text-[#001f40]/60">
-          Every title ships with weight-based islandwide fees. Add to cart,
+    <PageContainer className={SECTION_PAD_Y}>
+      <header className="mb-8">
+        <h1 className={PAGE_H1_CLASS}>Shop</h1>
+        <p className={`mt-4 max-w-2xl ${PAGE_LEAD_CLASS}`}>
+          Every book ships with weight-based islandwide fees. Add to cart,
           review totals, and complete checkout—we save your order and open
           WhatsApp with the details.
         </p>
       </header>
       <ShopClient books={books} />
-    </div>
+    </PageContainer>
   );
 }

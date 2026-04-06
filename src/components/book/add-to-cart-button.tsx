@@ -1,5 +1,6 @@
 "use client";
 
+import { ShoppingCart } from "lucide-react";
 import type { Book } from "@/types/book";
 import { useCartStore } from "@/stores/cart-store";
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,7 @@ export function AddToCartButton({
     <Button
       type="button"
       variant="primary"
-      className={`text-sm ${className}`}
+      className={`w-full px-6 py-3 text-base font-semibold tracking-tight shadow-sm transition-shadow duration-200 ease-out hover:shadow-md active:scale-[0.99] ${className}`}
       onClick={() =>
         addItem({
           id: book.id,
@@ -36,6 +37,7 @@ export function AddToCartButton({
         })
       }
     >
+      <ShoppingCart className="h-4 w-4 shrink-0 opacity-95" aria-hidden />
       {label}
     </Button>
   );

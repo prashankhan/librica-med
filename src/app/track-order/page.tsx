@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import { TrackOrderClient } from "@/components/track-order/track-order-client";
+import {
+  PAGE_H1_CLASS,
+  PAGE_LEAD_CLASS,
+  PAGE_READING_MAX_CLASS,
+  PageContainer,
+  SECTION_PAD_Y,
+} from "@/components/layout/page-container";
 
 export const metadata: Metadata = {
   title: "Track Order",
@@ -10,20 +17,18 @@ export const metadata: Metadata = {
 
 export default function TrackOrderPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-      <header className="mx-auto max-w-lg text-center">
-        <h1 className="text-3xl font-semibold tracking-tight text-[#001f40]">
-          Track your order
-        </h1>
-        <p className="mt-3 text-sm text-[#001f40]/55">
-          Enter your Sri Lanka mobile number in any common format. We match it
-          the same way as checkout and list every order for that number,
-          newest first.
-        </p>
-      </header>
-      <div className="mt-12">
+    <PageContainer className={SECTION_PAD_Y}>
+      <div className={PAGE_READING_MAX_CLASS}>
+        <header className="mb-8">
+          <h1 className={PAGE_H1_CLASS}>Track your order</h1>
+          <p className={`mt-4 ${PAGE_LEAD_CLASS}`}>
+            Enter your Sri Lanka mobile number in any common format. We match it
+            the same way as checkout and list every order for that number,
+            newest first.
+          </p>
+        </header>
         <TrackOrderClient />
       </div>
-    </div>
+    </PageContainer>
   );
 }

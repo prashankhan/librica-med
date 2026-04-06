@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Logo } from "@/components/layout/logo";
 import { useCartStore } from "@/stores/cart-store";
 import { useMounted } from "@/hooks/use-mounted";
-import { WHATSAPP_WA_ME } from "@/lib/site-config";
+import { TRUST_TAGLINE, WHATSAPP_WA_ME } from "@/lib/site-config";
+import { PAGE_PAD_X } from "@/components/layout/page-container";
 
 const navLinks = [
   { href: "/shop", label: "Shop" },
@@ -18,50 +19,73 @@ const navLinks = [
 export function SiteHeader() {
   const mounted = useMounted();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const items = useCartStore((s) => s.items);
   const count = mounted
     ? items.reduce((n, i) => n + i.quantity, 0)
     : 0;
 
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 4);
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-neutral-200/80 bg-white/95 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+    <>
+      <p
+        className={`bg-[#037eff] py-2 text-center text-base font-medium tracking-tight text-white ${PAGE_PAD_X}`}
+      >
+        {TRUST_TAGLINE}
+      </p>
+
+      <header
+        className={`sticky top-0 z-50 border-b-2 bg-white transition-colors duration-200 ease-out ${
+          scrolled ? "border-gray-200/40" : "border-gray-200/25"
+        }`}
+      >
+        <div
+          className={`mx-auto flex h-[90px] max-w-7xl items-center justify-between gap-3 sm:gap-6 ${PAGE_PAD_X}`}
+        >
         <Logo />
 
         <nav
-          className="hidden items-center gap-8 md:flex"
+          className="hidden items-center gap-6 lg:gap-8 md:flex"
           aria-label="Main navigation"
         >
           {navLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="text-sm font-medium text-[#001f40]/80 hover:text-[#037eff] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#037eff] rounded-sm"
+              className="relative text-xl font-semibold tracking-tight text-gray-600 transition-colors duration-200 ease-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:rounded-full after:bg-[#037eff] after:transition-transform after:duration-200 after:ease-out hover:text-[#001f40] hover:after:scale-x-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#037eff]"
             >
               {l.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <a
             href={WHATSAPP_WA_ME}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 text-[#037eff] hover:bg-[#037eff]/5 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#037eff]"
+            className="hidden sm:inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#25D366]/35 bg-[#25D366]/10 text-[#25D366] transition duration-200 ease-out hover:bg-[#25D366]/20 hover:border-[#25D366]/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
             aria-label="Contact on WhatsApp"
           >
-            <WhatsAppIcon className="h-5 w-5" />
+            <WhatsAppIcon className="h-8 w-8" />
           </a>
 
           <Link
             href="/cart"
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 text-[#001f40] hover:border-[#037eff]/30 hover:text-[#037eff] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#037eff]"
+            className="relative inline-flex h-14 w-14 items-center justify-center rounded-full border border-gray-200 text-[#001f40] transition duration-200 ease-out hover:border-[#037eff]/30 hover:text-[#037eff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#037eff]"
             aria-label={`Shopping cart${mounted && count > 0 ? `, ${count} items` : ""}`}
           >
-            <CartIcon className="h-5 w-5" />
+            <CartIcon className="h-8 w-8" />
             {mounted && count > 0 ? (
-              <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#037eff] px-1 text-[10px] font-semibold text-white">
+              <span className="absolute -right-0.5 -top-0.5 flex min-h-[1.25rem] min-w-[1.25rem] items-center justify-center rounded-full bg-[#037eff] px-1.5 text-xs font-semibold text-white">
                 {count > 99 ? "99+" : count}
               </span>
             ) : null}
@@ -69,7 +93,7 @@ export function SiteHeader() {
 
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 md:hidden text-[#001f40] hover:bg-neutral-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#037eff]"
+            className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-gray-200 text-[#001f40] transition duration-200 ease-out hover:bg-gray-50 md:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#037eff]"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -78,22 +102,22 @@ export function SiteHeader() {
             {open ? <CloseIcon /> : <MenuIcon />}
           </button>
         </div>
-      </div>
+        </div>
 
       {open ? (
         <div
           id="mobile-menu"
-          className="border-t border-neutral-200 bg-white md:hidden"
+          className="border-t border-gray-100 bg-white md:hidden"
         >
           <nav
-            className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4"
+            className={`mx-auto flex max-w-7xl flex-col gap-1 py-4 ${PAGE_PAD_X}`}
             aria-label="Mobile navigation"
           >
             {navLinks.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="rounded-full px-4 py-3 text-sm font-medium text-[#001f40] hover:bg-neutral-50"
+                className="rounded-full px-4 py-3 text-sm font-medium text-[#001f40] transition duration-200 ease-out hover:bg-gray-50"
                 onClick={() => setOpen(false)}
               >
                 {l.label}
@@ -103,7 +127,7 @@ export function SiteHeader() {
               href={WHATSAPP_WA_ME}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full px-4 py-3 text-sm font-medium text-[#037eff] hover:bg-[#037eff]/5"
+              className="rounded-full px-4 py-3 text-sm font-medium text-[#037eff] transition duration-200 ease-out hover:bg-[#037eff]/5"
               onClick={() => setOpen(false)}
             >
               WhatsApp
@@ -111,7 +135,8 @@ export function SiteHeader() {
           </nav>
         </div>
       ) : null}
-    </header>
+      </header>
+    </>
   );
 }
 
@@ -143,7 +168,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 function MenuIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
       <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
     </svg>
   );
@@ -151,7 +176,7 @@ function MenuIcon() {
 
 function CloseIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
       <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
     </svg>
   );

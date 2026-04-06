@@ -32,8 +32,16 @@ export async function POST(request: Request) {
 
   const parsed = createOrderBodySchema.safeParse(json);
   if (!parsed.success) {
+    const message = parsed.error.issues
+      .map((issue) => issue.message)
+      .filter(Boolean)
+      .join(" • ");
     return NextResponse.json(
-      { error: "Validation failed", details: parsed.error.flatten() },
+      {
+        error:
+          message ||
+          "Something in the form could not be validated. Please check your details.",
+      },
       { status: 422 },
     );
   }
@@ -43,7 +51,10 @@ export async function POST(request: Request) {
   const normalizedPhone = normalizePhone(body.phone_number);
   if (!normalizedPhone) {
     return NextResponse.json(
-      { error: "Invalid phone number" },
+      {
+        error:
+          "That phone number doesn't look like a Sri Lanka mobile. Use 07XXXXXXXX or +94 7X XXX XXXX (9 digits after the leading 7).",
+      },
       { status: 422 },
     );
   }

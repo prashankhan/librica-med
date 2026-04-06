@@ -10,8 +10,21 @@ export const WHATSAPP_E164 = "94716200863";
 export const WHATSAPP_DISPLAY = "+94 71 620 0863";
 export const WHATSAPP_WA_ME = `https://wa.me/${WHATSAPP_E164}`;
 
+export const INSTAGRAM_URL =
+  "https://www.instagram.com/librica_med_medical_bookshop/";
+export const FACEBOOK_URL =
+  "https://www.facebook.com/p/Librica-Med-61573937169524/";
+
 export const TRUST_TAGLINE = "Sri Lanka’s First Registered Online Medical Book Shop";
 export const REGISTRATION_NUMBER = "DS/NA/BR/370";
 
+/** Site build credit — external agency */
+export const SITE_CREDIT_NAME = "Growth Space Lanka";
+export const SITE_CREDIT_URL = "https://growthspacelanka.com/";
+
 /** Airtable base name (documentation); integration uses AIRTABLE_BASE_ID */
 export const AIRTABLE_BASE_NAME = "librica-med-store";
+
+/** Brand assets in /public/logos/ */
+export const SITE_LOGO_SRC = `/logos/${encodeURIComponent("Librica Med.svg")}`;
+export const SITE_FAVICON_SRC = "/logos/favicon-librica-med.svg";

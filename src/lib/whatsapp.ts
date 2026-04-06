@@ -43,7 +43,33 @@ export function buildOrderWhatsAppMessage(input: OrderMessageInput): string {
   return lines.join("\n");
 }
 
+export function buildWhatsAppUrlWithText(plainText: string): string {
+  return `${WHATSAPP_WA_ME}?text=${encodeURIComponent(plainText)}`;
+}
+
 export function buildWhatsAppOrderUrl(message: string): string {
-  const text = encodeURIComponent(message);
-  return `${WHATSAPP_WA_ME}?text=${text}`;
+  return buildWhatsAppUrlWithText(message);
+}
+
+export interface ContactWhatsAppInput {
+  name: string;
+  phone: string;
+  topic: string;
+  message: string;
+}
+
+export function buildContactWhatsAppMessage(input: ContactWhatsAppInput): string {
+  const name = input.name.trim();
+  const phone = input.phone.trim();
+  const topic = input.topic.trim();
+  const body = input.message.trim();
+  const lines = [
+    "Hi Librica Med team,",
+    "",
+    `Name: ${name}`,
+    `Phone: ${phone}`,
+  ];
+  if (topic) lines.push(`Topic: ${topic}`);
+  lines.push("", "Message:", body);
+  return lines.join("\n");
 }

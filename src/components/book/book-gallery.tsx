@@ -24,19 +24,19 @@ export function BookGallery({
   const display = active ?? primary;
 
   return (
-    <div className="space-y-4">
-      <div className="relative aspect-[2/3] w-full max-w-md overflow-hidden rounded-2xl border border-neutral-200/90 bg-neutral-50">
+    <div className="w-full min-w-0 space-y-4">
+      <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-gray-100 bg-gray-50">
         {display ? (
           <Image
             src={display}
             alt={title}
             fill
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 480px"
+            className="object-cover object-center"
+            sizes="(max-width: 1024px) 100vw, 50vw"
             priority
           />
         ) : (
-          <div className="flex h-full items-center justify-center p-6 text-center text-sm text-[#001f40]/45">
+          <div className="flex h-full items-center justify-center p-6 text-center text-sm text-gray-400">
             Cover coming soon
           </div>
         )}
@@ -48,10 +48,10 @@ export function BookGallery({
               key={url}
               type="button"
               onClick={() => setActive(url)}
-              className={`relative h-16 w-12 overflow-hidden rounded-lg border transition-colors ${
+              className={`relative size-14 shrink-0 overflow-hidden rounded-lg border transition duration-200 ease-out sm:size-16 ${
                 display === url
                   ? "border-[#037eff] ring-2 ring-[#037eff]/25"
-                  : "border-neutral-200 hover:border-[#037eff]/40"
+                  : "border-gray-100 hover:border-[#037eff]/40"
               }`}
               aria-label="View image"
             >
@@ -60,7 +60,7 @@ export function BookGallery({
                 alt=""
                 fill
                 className="object-cover"
-                sizes="48px"
+                sizes="64px"
               />
             </button>
           ))}

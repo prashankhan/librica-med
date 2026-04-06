@@ -3,9 +3,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBookBySlug, getAllBooks } from "@/lib/airtable/books";
 import { SITE_NAME, SITE_URL } from "@/lib/site-config";
+import { formatLkr, formatWeightGrams } from "@/lib/format";
 import { BookGallery } from "@/components/book/book-gallery";
 import { BookDetailActions } from "@/components/book/book-detail-actions";
 import { BookCard } from "@/components/book/book-card";
+import {
+  PAGE_H1_CLASS,
+  PAGE_SECTION_TITLE_CLASS,
+  PAGE_LEAD_CLASS,
+  PageContainer,
+  ProductGrid,
+  SECTION_PAD_Y,
+} from "@/components/layout/page-container";
 import {
   BreadcrumbJsonLd,
   ProductJsonLd,
@@ -67,64 +76,82 @@ export default async function BookDetailPage({ params }: PageProps) {
           { name: book.title, url: canonical },
         ]}
       />
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
-        <nav className="text-xs text-[#001f40]/50" aria-label="Breadcrumb">
+      <PageContainer className={SECTION_PAD_Y}>
+        <nav
+          className="text-sm font-medium text-gray-500 md:text-base"
+          aria-label="Breadcrumb"
+        >
           <ol className="flex flex-wrap gap-2">
             <li>
-              <Link href="/" className="hover:text-[#037eff]">
+              <Link
+                href="/"
+                className="transition duration-200 ease-out hover:text-[#037eff] hover:underline"
+              >
                 Home
               </Link>
             </li>
             <li aria-hidden>/</li>
             <li>
-              <Link href="/shop" className="hover:text-[#037eff]">
+              <Link
+                href="/shop"
+                className="transition duration-200 ease-out hover:text-[#037eff] hover:underline"
+              >
                 Shop
               </Link>
             </li>
             <li aria-hidden>/</li>
-            <li className="text-[#001f40]/70">{book.title}</li>
+            <li className="line-clamp-2 text-[#001f40]">{book.title}</li>
           </ol>
         </nav>
 
-        <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,400px)_1fr] lg:items-start">
-          <BookGallery
-            coverUrl={book.cover_image}
-            galleryUrls={book.gallery_images}
-            title={book.title}
-          />
-          <div>
-            <h1 className="text-3xl font-semibold tracking-tight text-[#001f40] sm:text-4xl">
-              {book.title}
-            </h1>
+        <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-12">
+          <div className="min-w-0">
+            <BookGallery
+              coverUrl={book.cover_image}
+              galleryUrls={book.gallery_images}
+              title={book.title}
+            />
+          </div>
+          <div className="min-w-0 space-y-4">
+            <h1 className={`${PAGE_H1_CLASS} max-w-2xl`}>{book.title}</h1>
+            <p className="text-xl font-bold tabular-nums text-[#037eff] md:text-2xl">
+              {formatLkr(book.price_lkr)}
+            </p>
+            <p className="text-base font-medium text-gray-500">
+              Weight: {formatWeightGrams(book.weight_grams)} · Islandwide
+              shipping calculated at checkout
+            </p>
             {book.description ? (
-              <div className="mt-6 space-y-4 text-sm leading-relaxed text-[#001f40]/70 whitespace-pre-line">
+              <div
+                className={`${PAGE_LEAD_CLASS} max-w-2xl whitespace-pre-line`}
+              >
                 {book.description}
               </div>
             ) : (
-              <p className="mt-6 text-sm text-[#001f40]/55">
+              <p className={`${PAGE_LEAD_CLASS} max-w-2xl`}>
                 Full description coming soon. Contact us on WhatsApp for
                 edition and availability questions.
               </p>
             )}
-            <div className="mt-8 border-t border-neutral-100 pt-8">
+            <div className="border-t border-gray-100 pt-6">
               <BookDetailActions book={book} />
             </div>
           </div>
         </div>
 
         {related.length > 0 ? (
-          <section className="mt-20 border-t border-neutral-200 pt-14">
-            <h2 className="text-xl font-semibold tracking-tight text-[#001f40]">
+          <section className="mt-16 border-t border-gray-100 pt-12 md:mt-20 md:pt-14">
+            <h2 className={`mb-8 ${PAGE_SECTION_TITLE_CLASS}`}>
               You may also like
             </h2>
-            <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+            <ProductGrid>
               {related.map((b) => (
                 <BookCard key={b.id} book={b} />
               ))}
-            </div>
+            </ProductGrid>
           </section>
         ) : null}
-      </div>
+      </PageContainer>
     </>
   );
 }
