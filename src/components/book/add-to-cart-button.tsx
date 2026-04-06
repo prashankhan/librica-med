@@ -37,7 +37,10 @@ export function AddToCartButton({
         })
       }
     >
-      <ShoppingCart className="h-4 w-4 shrink-0 opacity-95" aria-hidden />
+      <ShoppingCart
+        className="h-4 w-4 shrink-0 opacity-95 max-[350px]:hidden"
+        aria-hidden
+      />
       {label}
     </Button>
   );

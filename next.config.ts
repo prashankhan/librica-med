@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
+import path from "path";
+import { fileURLToPath } from "url";
+
+/** App root — fixes wrong workspace inference when a parent folder has its own package-lock.json */
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
-  turbopack: {
-    root: __dirname,
-  },
+  outputFileTracingRoot: projectRoot,
   images: {
     remotePatterns: [
       {
