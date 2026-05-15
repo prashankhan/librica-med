@@ -27,6 +27,7 @@ export function BookCover({
           src={src}
           alt={alt}
           fill
+          unoptimized
           className="object-cover transition duration-200 ease-out group-hover:scale-[1.02]"
           sizes={sizes}
           priority={priority}

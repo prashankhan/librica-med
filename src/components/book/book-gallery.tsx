@@ -31,6 +31,7 @@ export function BookGallery({
             src={display}
             alt={title}
             fill
+            unoptimized
             className="object-cover object-center"
             sizes="(max-width: 1024px) 100vw, 50vw"
             priority
@@ -59,6 +60,7 @@ export function BookGallery({
                 src={url}
                 alt=""
                 fill
+                unoptimized
                 className="object-cover"
                 sizes="64px"
               />

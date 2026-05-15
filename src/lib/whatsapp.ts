@@ -4,6 +4,7 @@ import { formatLkr } from "@/lib/format";
 import { formatWeightGrams } from "@/lib/format";
 
 export interface OrderMessageInput {
+  orderId: string;
   items: CartItem[];
   booksSubtotalLkr: number;
   totalWeightGrams: number;
@@ -17,6 +18,8 @@ export interface OrderMessageInput {
 export function buildOrderWhatsAppMessage(input: OrderMessageInput): string {
   const lines: string[] = [
     "Hi Librica Med team, I'd like to place this order:",
+    "",
+    `*Reference number:* *${input.orderId}*`,
     "",
     "Items:",
   ];

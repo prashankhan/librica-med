@@ -119,6 +119,7 @@ export async function POST(request: Request) {
   }
 
   const message = buildOrderWhatsAppMessage({
+    orderId,
     items,
     booksSubtotalLkr: booksSubtotal,
     totalWeightGrams: totalWeight,
